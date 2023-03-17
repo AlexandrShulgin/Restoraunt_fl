@@ -1,0 +1,28 @@
+.card-basket {
+color: aliceblue;
+display: flex;
+justify-content: space-between;
+align-items: center;
+/* padding: 0 0 35px 0px; */
+margin-bottom: 31px;
+}
+
+.card-basket__menu {
+flex: 1;
+padding-left: 98px;
+}
+
+.basket-price {
+
+display: contents
+}
+
+.card-basket__price {
+padding: 15px;
+color: #d58c51;
+}
+
+.card-basket__img {
+    width: 132px;
+    height: 132px;
+}

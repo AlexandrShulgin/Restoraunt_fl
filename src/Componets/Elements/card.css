@@ -1,0 +1,58 @@
+.card {
+color: #ffffff;
+border: 1px solid #D58C51;
+font-family: 'Montserrat', sans-serif;
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+padding: 43px 21px 32px 21px;
+
+}
+
+.card__preview {
+height: 60%;
+object-fit: contain;
+}
+
+.card__title {
+font-style: normal;
+font-weight: 700;
+font-size: 17px;
+line-height: 21px;
+}
+
+
+.card__description {
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+padding-bottom: 33px;
+}
+
+.card:hover {
+color: #D58C51;
+transition: 1s all;
+}
+
+.card__bottom {
+display: flex;
+flex-direction: row-reverse;
+justify-content: space-between;
+padding-bottom: 8px;
+}
+
+
+.price {
+
+}
+
+.adding {
+    
+}
+
+.adding:hover{
+background-color: #D58C51;
+border-radius: 50%;
+transition: 0.5s all;
+}
