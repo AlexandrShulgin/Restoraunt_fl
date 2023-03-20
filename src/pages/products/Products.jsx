@@ -4,12 +4,18 @@ import { products } from "../../Products.jsx";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from '../../store/productsSlice'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function Products() {
   const {productsArray} = useSelector(state => state.productsReducer)//Массив карточек из store
   const dispatch = useDispatch()
   const navigate = useNavigate() //Хук для навигации
   const [addButton, setAddButton] = useState(products.map(item => item.urlOne))
+
+  useEffect(() => {
+   productsArray.map(item => {
+    setAddButton(prev => (prev[products.indexOf(item)] = '/images/4.1.png', [...prev]))
+   })
+  }, [productsArray])
 
   function clickHandler(array, item) {
     //Если в корзине есть товар - удаляет, если нет - добавляет
