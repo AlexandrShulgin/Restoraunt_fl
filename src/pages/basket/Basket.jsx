@@ -2,13 +2,23 @@ import "./basket.css";
 import CardBasket from "../../Componets/Elements/cardBasket/cardBasket";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { remove } from '../../store/productsSlice'
+import { remove, clear } from '../../store/productsSlice'
 import {v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import Modal from '../../Componets/Elements/modal/Modal'
 
 function Basket() {
   const {productsArray} = useSelector(state => state.productsReducer)//Массив карточек из store
   const dispatch = useDispatch()
   const navigate = useNavigate() //Хук для навигации
+  const [modalActive, setModalActive] = useState(false)
+
+  function purchaseHandler() {
+    //Удаляет все из корзины, вызывает модальное окно на 3000 секунд
+    dispatch(clear())
+    setModalActive(true)
+    setTimeout(() => setModalActive(false), 3000)
+  }
 
   return (
     <div className="wrapper-basket">
@@ -28,7 +38,7 @@ function Basket() {
            productsArray.map(item => {
             return (
               <CardBasket
-              key={uuidv4()} //Генерирует случайный id, так как при использовании id из Products возникают ошибки с удалением из корзины
+              key={item.id}
               urlCard={item.url}
               text={item.title}
               cardPrice={item.price}
@@ -55,6 +65,9 @@ function Basket() {
           urlIcon='/images/7.png'
             />*/}
         </main>
+        <Modal active={modalActive} setActive={setModalActive}>
+          Заказ успешно оформлен!
+        </Modal> 
       </div>
       <div className="footer__container">
       <div className="footer__border">
@@ -65,7 +78,11 @@ function Basket() {
             {productsArray.reduce((accumulator, current) => accumulator + parseInt(current.price), 0)/*Проходит по массиву в store и складывает все цены*/}
             ₽</p>
           </div>
-          <button className="footer__btn">Оформить заказ</button>
+          <button 
+            className="footer__btn"
+            onClick={purchaseHandler}>
+            Оформить заказ
+          </button>
         </footer>
       </div>
       </div>

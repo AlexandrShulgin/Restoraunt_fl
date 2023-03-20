@@ -15,9 +15,15 @@ export const productsSlice = createSlice({
         //Функция удаления карточки из store
         remove(state, action) {
             state.productsArray.splice(action.payload, 1)
+        },
+        clear(state) {
+            state.productsArray = []
         }
+
     }
 })
 export const { add } = productsSlice.actions
 export const { remove } = productsSlice.actions
+export const { clear } = productsSlice.actions
+
 export default productsSlice.reducer;

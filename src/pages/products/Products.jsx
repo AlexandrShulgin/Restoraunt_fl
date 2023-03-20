@@ -3,11 +3,24 @@ import Card from "../../Componets/Elements/Card";
 import { products } from "../../Products.jsx";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { add } from '../../store/productsSlice'
+import { add, remove } from '../../store/productsSlice'
+import { useState } from "react";
 function Products() {
   const {productsArray} = useSelector(state => state.productsReducer)//Массив карточек из store
   const dispatch = useDispatch()
   const navigate = useNavigate() //Хук для навигации
+  const [addButton, setAddButton] = useState(products.map(item => item.urlOne))
+
+  function clickHandler(array, item) {
+    //Если в корзине есть товар - удаляет, если нет - добавляет
+    if (array.find(elem => elem.id === item.id) !== undefined) {
+      dispatch(remove(item))
+      setAddButton(prev => (prev[products.indexOf(item)] = '/images/4.png', [...prev]))//Меняет кнопку с - на +
+    } else {
+      dispatch(add(item))
+      setAddButton(prev => (prev[products.indexOf(item)] = '/images/4.1.png', [...prev]))//Меняет кнопку с + на -
+    }
+  }
 
 return(
 <main className="main">
@@ -33,12 +46,12 @@ return(
         <Card 
         key={item.id}
         url={item.url}
-        urlOne={item.urlOne}
+        urlOne={addButton[products.indexOf(item)]}
         title={item.title}
         description={item.description}
         price={item.price}
         weight={item.weight}
-        action={() => dispatch(add(item))} //Добавляет в store данные карточки
+        action={() => clickHandler(productsArray, item)} //Добавляет и удаляет из store данные карточки 
     />
       );
     })};
